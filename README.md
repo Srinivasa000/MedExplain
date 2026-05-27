@@ -4,14 +4,6 @@
 
 ---
 
-## 🎨 Visual Interface Mockup
-
-Below is a premium visual mockup of the **MedExplain Interactive Clinical Dashboard**, featuring HSL medical-teal styling, glassmorphic diagnostic cards, blood test anomalies logs, prescription schedules, and a patient clinical timeline:
-
-![MedExplain Dashboard Mockup](medexplain_dashboard.png)
-
----
-
 ## 🏗️ Code Architecture
 
 The project has been split into two distinct tiers: a **local high-fidelity MVP prototype** for rapid testing, and an **enterprise-ready production framework** for cloud scale.
