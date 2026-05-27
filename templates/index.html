@@ -290,9 +290,9 @@
 
         /* --- Workspace Container --- */
         .workspace {
-            margin-left: 70px;
+            margin-left: 0;
             margin-top: 70px;
-            padding: 30px;
+            padding: 20px;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
@@ -1083,6 +1083,135 @@
             100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
         }
 
+        /* --- Login / Sign Up Header Triggers --- */
+        .auth-header-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-left: 1px solid var(--border-color);
+            padding-left: 20px;
+        }
+
+        .login-btn {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 6px 16px;
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .login-btn:hover {
+            color: #ffffff;
+            border-color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.03);
+            transform: translateY(-1px);
+        }
+
+        .signup-btn {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border: none;
+            border-radius: 18px;
+            padding: 7px 18px;
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+            transition: all 0.25s ease;
+        }
+
+        .signup-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+        }
+        
+        .user-logged-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--primary);
+            font-size: 14px;
+        }
+
+        /* --- Auth Modal Styling --- */
+        .auth-modal-card {
+            background-color: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 400px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: relative;
+            transform: scale(0.95);
+            animation: modalScaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        .auth-tab-bar {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 10px;
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: 10px 0;
+            text-align: center;
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-bottom: 2px solid transparent;
+        }
+
+        .auth-tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .auth-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .auth-input-group label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .auth-field {
+            height: 38px;
+            background-color: rgba(0, 0, 0, 0.25);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0 12px;
+            color: #ffffff;
+            outline: none;
+            font-size: 13px;
+            transition: all 0.2s ease;
+        }
+
+        .auth-field:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 8px rgba(16, 185, 129, 0.1);
+        }
+
         /* --- ChatGPT UI Layout Styling --- */
         .chatgpt-container {
             display: flex;
@@ -1350,367 +1479,24 @@
             </span>
         </div>
 
-        <ul class="nav-tabs">
-            <li class="nav-tab active" id="tab-dashboard" onclick="switchMainTab('dashboard')">Dashboard</li>
-            <li class="nav-tab" id="tab-chat" onclick="switchMainTab('chat')">ChatGPT Assistant</li>
-            <li class="nav-tab" onclick="openModal('reportModal')">Upload Report</li>
-            <li class="nav-tab" onclick="openModal('rxModal')">Decode Rx</li>
-            <li class="nav-tab" onclick="toggleChatDrawer()">Emergency Panel</li>
-        </ul>
-
         <div class="header-actions">
-            <div class="search-container">
-                <svg class="search-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                <input type="text" class="search-input" placeholder="Search...">
-            </div>
-            
             <button class="bell-btn">
                 <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
                 <div class="bell-badge"></div>
             </button>
 
-            <div class="profile-container">
-                <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=200" alt="Doctor Profile" class="profile-avatar">
-                <span class="profile-info">Dr. Elara Vance</span>
+            <!-- Authentication header trigger group -->
+            <div class="auth-header-group" id="headerAuthGroup">
+                <button class="login-btn" onclick="openAuthModal('signin')">Log In</button>
+                <button class="signup-btn" onclick="openAuthModal('signup')">Sign Up</button>
             </div>
         </div>
     </header>
 
-    <!-- LEFT SIDBAR -->
-    <nav class="left-sidebar">
-        <ul class="sidebar-icons-list">
-            <li class="sidebar-icon-item active" title="Dashboard">
-                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
-            </li>
-            <li class="sidebar-icon-item" title="Timeline log" onclick="openModal('reportModal')">
-                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-            </li>
-            <li class="sidebar-icon-item" title="Patients list" onclick="openModal('rxModal')">
-                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 7a4 4 0 11-8 0 4 4 0 018 0z M23 21v-2a4 4 0 00-3-3.87 M16 3.13a4 4 0 010 7.75"></path></svg>
-            </li>
-            <li class="sidebar-icon-item" title="Calendar schedule" onclick="toggleChatDrawer()">
-                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-            </li>
-            <li class="sidebar-icon-item" title="Diagnostic Settings" onclick="toggleChatDrawer()">
-                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-            </li>
-        </ul>
-
-        <div class="sidebar-logout" title="Exit Workspace" onclick="location.reload()">
-            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
-        </div>
-    </nav>
-
     <!-- WORKSPACE -->
     <div class="workspace">
-
-        <!-- WORKFLOW SHORTCUT PANEL (VIBRANT & SIMPLE WORKFLOW TRIGGERS) -->
-        <div class="workflow-shortcuts">
-            <div class="shortcut-card shortcut-report" onclick="openModal('reportModal')">
-                <div class="shortcut-icon">
-                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                </div>
-                <div class="shortcut-info">
-                    <h4>Analyze Lab Sheet</h4>
-                    <p>Load blood reports & view visual anomalies</p>
-                </div>
-            </div>
-
-            <div class="shortcut-card shortcut-prescription" onclick="openModal('rxModal')">
-                <div class="shortcut-icon">
-                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
-                </div>
-                <div class="shortcut-info">
-                    <h4>Decode Prescription</h4>
-                    <p>Screen drug interactions & schedules</p>
-                </div>
-            </div>
-
-            <div class="shortcut-card shortcut-bot" onclick="toggleChatDrawer()">
-                <div class="shortcut-icon">
-                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
-                </div>
-                <div class="shortcut-info">
-                    <h4>Clinical AI Companion</h4>
-                    <p>Ask follow-up questions using Meditron</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- MAIN DASHBOARD GRID -->
-        <div id="dashboardView">
-        <main class="dashboard-grid">
-
-            <!-- LEFT: BLOOD TEST REPORTS ANOMALY TABLE -->
-            <section class="anomaly-card">
-                <div class="card-header-bar">
-                    <div class="card-header-title">
-                        <h3>Blood Test Reports Anomaly Table</h3>
-                    </div>
-                    <div class="card-header-controls">
-                        <div class="table-search-box">
-                            <svg class="search-icon" style="left:8px; width:12px; height:12px;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                            <input type="text" class="table-search-input" placeholder="Search...">
-                        </div>
-                        <button class="menu-dot-btn">
-                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"></path></svg>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Anomalies Table -->
-                <div class="custom-table-wrapper">
-                    <table class="custom-table">
-                        <thead>
-                            <tr>
-                                <th>Test Name</th>
-                                <th>Date</th>
-                                <th>Result</th>
-                                <th>Flag</th>
-                                <th>Notes</th>
-                            </tr>
-                        </thead>
-                        <tbody id="dashboardTableBody">
-                            <tr class="anomaly-row">
-                                <td style="font-weight:600; color:#ffffff;">Complete Blood Count</td>
-                                <td style="color:var(--text-secondary);">07/09/23</td>
-                                <td style="color:#ef4444; font-weight:600;">9.4 g</td>
-                                <td><span class="flag-badge flag-Critical">Critical</span></td>
-                                <td style="color:var(--text-secondary); font-size:12.5px;">Severe drop in oxygen levels</td>
-                            </tr>
-                            <tr class="anomaly-row">
-                                <td style="font-weight:600; color:#ffffff;">Complete Blood Count</td>
-                                <td style="color:var(--text-secondary);">Hb: 10/23</td>
-                                <td style="color:#f59e0b; font-weight:600;">10.2 g/dL</td>
-                                <td><span class="flag-badge flag-Low">Low</span></td>
-                                <td style="color:var(--text-secondary); font-size:12.5px;">Anemia suspected</td>
-                            </tr>
-                            <tr class="anomaly-row">
-                                <td style="font-weight:600; color:#ffffff;">WBC (White Blood Cells)</td>
-                                <td style="color:var(--text-secondary);">07/09/23</td>
-                                <td style="color:#ef4444; font-weight:600;">14.8 x10^9/L</td>
-                                <td><span class="flag-badge flag-High">High</span></td>
-                                <td style="color:var(--text-secondary); font-size:12.5px;">Infection?</td>
-                            </tr>
-                            <tr class="anomaly-row">
-                                <td style="font-weight:600; color:#ffffff;">Glucose</td>
-                                <td style="color:var(--text-secondary);">07/09/23</td>
-                                <td style="color:#f59e0b; font-weight:600;">135 mg/dL</td>
-                                <td><span class="flag-badge flag-High">High</span></td>
-                                <td style="color:var(--text-secondary); font-size:12.5px;">Borderline high levels</td>
-                            </tr>
-                            <tr class="anomaly-row">
-                                <td style="font-weight:600; color:#ffffff;">Glucose</td>
-                                <td style="color:var(--text-secondary);">07/09/23</td>
-                                <td style="color:#ef4444; font-weight:600;">135 mg/dL</td>
-                                <td><span class="flag-badge flag-High">High</span></td>
-                                <td style="color:var(--text-secondary); font-size:12.5px;">Anemia suspected</td>
-                            </tr>
-                            <tr class="anomaly-row">
-                                <td style="font-weight:600; color:#ffffff;">Infeopril</td>
-                                <td style="color:var(--text-secondary);">07/09/23</td>
-                                <td style="color:#f59e0b; font-weight:600;">135 mg/dL</td>
-                                <td><span class="flag-badge flag-Low">Low</span></td>
-                                <td style="color:var(--text-secondary); font-size:12.5px;">Ressection?</td>
-                            </tr>
-                            <tr class="anomaly-row">
-                                <td style="font-weight:600; color:#ffffff;">Glucose</td>
-                                <td style="color:var(--text-secondary);">07/09/23</td>
-                                <td style="color:var(--text-secondary);">135 mg/dL</td>
-                                <td><span class="flag-badge flag-Low">Low</span></td>
-                                <td style="color:var(--text-secondary); font-size:12.5px;">Slight deviation</td>
-                            </tr>
-                            <tr class="anomaly-row">
-                                <td style="font-weight:600; color:#ffffff;">HRB</td>
-                                <td style="color:var(--text-secondary);">07/09/23</td>
-                                <td style="color:#10b981; font-weight:600;">2.2 g/dL</td>
-                                <td><span class="flag-badge flag-Normal">High</span></td>
-                                <td style="color:var(--text-secondary); font-size:12.5px;">Safe margins</td>
-                            </tr>
-                            <tr class="anomaly-row">
-                                <td style="font-weight:600; color:#ffffff;">Atorvastatin</td>
-                                <td style="color:var(--text-secondary);">07/09/23</td>
-                                <td style="color:#10b981; font-weight:600;">135 mg/dL</td>
-                                <td><span class="flag-badge flag-Normal">High</span></td>
-                                <td style="color:var(--text-secondary); font-size:12.5px;">Normal intake tracking</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Pagination -->
-                <div class="pagination-container">
-                    <button class="page-btn"><</button>
-                    <button class="page-btn active">1</button>
-                    <button class="page-btn">2</button>
-                    <button class="page-btn">></button>
-                </div>
-            </section>
-
-            <!-- RIGHT PANELS -->
-            <div style="display:flex; flex-direction:column; gap:25px; width:100%;">
-                
-                <!-- PRESCRIPTION TIMING SCHEDULE -->
-                <section class="prescription-card">
-                    <div class="rx-header-bar">
-                        <div>
-                            <h3>Prescription Timing Schedule</h3>
-                            <div class="rx-subtitle">Patient: Sarah J. Miller</div>
-                        </div>
-                        <span class="rx-active-status">
-                            <div class="status-dot"></div>
-                            Active
-                        </span>
-                    </div>
-
-                    <div class="rx-cards-list">
-                        <!-- Metformin -->
-                        <div class="rx-pill-item med-metformin">
-                            <div class="rx-pill-header">
-                                <div class="rx-pill-name">
-                                    <div class="rx-pill-icon">💊</div>
-                                    <div>
-                                        <h4>Metformin</h4>
-                                        <span>Blood Sugar Regulator</span>
-                                    </div>
-                                </div>
-                                <span class="rx-timing-label">08:00 | 20:00</span>
-                            </div>
-                            <div class="rx-schedule-track">
-                                <div class="schedule-progress"></div>
-                            </div>
-                            <div class="rx-timeline-indicators">
-                                <span>Morning (Food)</span>
-                                <span>Night (Food)</span>
-                            </div>
-                        </div>
-
-                        <!-- Lisinopril -->
-                        <div class="rx-pill-item med-lisinopril">
-                            <div class="rx-pill-header">
-                                <div class="rx-pill-name">
-                                    <div class="rx-pill-icon">❤️</div>
-                                    <div>
-                                        <h4>Lisinopril</h4>
-                                        <span>Blood Pressure Control</span>
-                                    </div>
-                                </div>
-                                <span class="rx-timing-label">09:00</span>
-                            </div>
-                            <div class="rx-schedule-track">
-                                <div class="schedule-progress"></div>
-                            </div>
-                            <div class="rx-timeline-indicators">
-                                <span>Morning (Water)</span>
-                                <span>Standard dose</span>
-                            </div>
-                        </div>
-
-                        <!-- Atorvastatin -->
-                        <div class="rx-pill-item med-atorvastatin">
-                            <div class="rx-pill-header">
-                                <div class="rx-pill-name">
-                                    <div class="rx-pill-icon">🩺</div>
-                                    <div>
-                                        <h4>Atorvastatin</h4>
-                                        <span>Cholesterol Control</span>
-                                    </div>
-                                </div>
-                                <span class="rx-timing-label">22:00</span>
-                            </div>
-                            <div class="rx-schedule-track">
-                                <div class="schedule-progress"></div>
-                            </div>
-                            <div class="rx-timeline-indicators">
-                                <span>Evening (Bedtime)</span>
-                                <span>High protection</span>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- PATIENT TIMELINE CHART -->
-                <section class="timeline-card">
-                    <div class="timeline-header-bar">
-                        <h3>Patient Timeline Chart</h3>
-                        <span class="rx-subtitle">Last 12 Months</span>
-                    </div>
-
-                    <div class="timeline-patient-badge">
-                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=200" alt="Sarah Miller" class="timeline-patient-avatar">
-                        <div class="timeline-patient-info">
-                            <h4>Sarah Miller</h4>
-                            <p>Consultations Journey</p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-track-list">
-                        <!-- Consultations -->
-                        <div class="timeline-track-row">
-                            <span class="track-label">Consults</span>
-                            <div class="track-timeline" id="consultsTimeline">
-                                <div class="timeline-point point-blue" style="left: 10%;" title="Oct 12">
-                                    <div class="timeline-point-tag">Oct 12</div>
-                                </div>
-                                <div class="timeline-point point-blue" style="left: 35%;" title="Jan 15">
-                                    <div class="timeline-point-tag">Jan 15</div>
-                                </div>
-                                <div class="timeline-point point-blue" style="left: 60%;" title="Mar 20">
-                                    <div class="timeline-point-tag">Mar 20</div>
-                                </div>
-                                <div class="timeline-point point-blue" style="left: 85%;" title="June 10">
-                                    <div class="timeline-point-tag">June 10</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Labs -->
-                        <div class="timeline-track-row">
-                            <span class="track-label">Labs</span>
-                            <div class="track-timeline" id="labsTimeline">
-                                <div class="timeline-point point-green" style="left: 15%;" title="Nov 3">
-                                    <div class="timeline-point-tag">Nov 3</div>
-                                </div>
-                                <div class="timeline-point point-green" style="left: 45%;" title="Feb 10">
-                                    <div class="timeline-point-tag">Feb 10</div>
-                                </div>
-                                <div class="timeline-point point-green" style="left: 65%;" title="Apr 5">
-                                    <div class="timeline-point-tag">Apr 5</div>
-                                </div>
-                                <div class="timeline-point point-green" style="left: 90%;" title="July 1">
-                                    <div class="timeline-point-tag">July 1</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Medications -->
-                        <div class="timeline-track-row">
-                            <span class="track-label">Meds</span>
-                            <div class="track-timeline" id="medsTimeline">
-                                <div class="timeline-point point-orange" style="left: 20%;" title="Active"></div>
-                                <div class="timeline-point point-orange" style="left: 50%;" title="Active"></div>
-                                <div class="timeline-point point-orange" style="left: 75%;" title="Active"></div>
-                                <div class="timeline-point point-orange" style="left: 95%;" title="Active"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Hospitalization critical warning alert -->
-                    <div class="critical-event-alert">
-                        <div>
-                            <h4>Hospitalization Alert Event</h4>
-                            <p>Admitted Jan 18-21 due to acute physiological fluctuations. Resolved and monitored.</p>
-                        </div>
-                    </div>
-                </section>
-
-            </div>
-
-        </main>
-        </div>
-
         <!-- CHATGPT UI CONVERSATIONAL WORKSPACE -->
-        <div id="chatgptView" style="display:none;" class="chatgpt-container">
+        <div id="chatgptView" class="chatgpt-container" style="display: flex;">
             <!-- Left Sidebar: Chat Sessions History -->
             <aside class="chatgpt-sidebar">
                 <button class="chatgpt-new-chat-btn" onclick="startNewChatGPTReadySession()">
@@ -1721,14 +1507,6 @@
                     <div class="chatgpt-history-item active" id="sess-sarah" onclick="switchChatGPTSession('sarah')">
                         <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
                         Sarah J. Miller - CBC Report
-                    </div>
-                    <div class="chatgpt-history-item" id="sess-john" onclick="switchChatGPTSession('john')">
-                        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
-                        John Doe - Metabolic Panel
-                    </div>
-                    <div class="chatgpt-history-item" id="sess-arthur" onclick="switchChatGPTSession('arthur')">
-                        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
-                        Arthur Dent - Cardiac STEMI ECG
                     </div>
                 </div>
             </aside>
@@ -1749,30 +1527,30 @@
 
                 <!-- Chat Messages Scroll Feed -->
                 <div class="chatgpt-feed" id="chatgptFeed">
-                    <!-- Welcome Hero Screen -->
-                    <div class="chatgpt-welcome-screen" id="chatgptWelcome">
-                        <div class="chatgpt-welcome-logo">🧠</div>
-                        <h2>MedExplain Conversational Workspace</h2>
-                        <p>Ask follow-up questions, query reference guidelines, or screen drug interactions. Click any action starter card below to initiate clinical inquiries instantly.</p>
-                        
-                        <div class="chatgpt-suggestions-grid">
-                            <div class="chatgpt-suggestion-card" onclick="prefillChatGPTInput('Briefly explain Sarah\'s Complete Blood Count anomalies')">
-                                <h5>📊 Explain CBC Anomalies</h5>
-                                <span>Summarize the hemoglobin and WBC flags.</span>
-                            </div>
-                            <div class="chatgpt-suggestion-card" onclick="prefillChatGPTInput('Check Metformin drug-drug interactions with other prescribed drugs')">
-                                <h5>💊 Screen Drug Interactions</h5>
-                                <span>Cross-reference prescription database guidelines.</span>
-                            </div>
-                            <div class="chatgpt-suggestion-card" onclick="prefillChatGPTInput('Explain chest X-ray right lower lobe opacity findings in pneumonia')">
-                                <h5>🫁 Analyze Pneumonia Markings</h5>
-                                <span>Read radiographic infiltrates alignment notes.</span>
-                            </div>
-                            <div class="chatgpt-suggestion-card" onclick="prefillChatGPTInput('What specialist should Arthur consult for ST-elevation ECG anomalies?')">
-                                <h5>🩺 Suggest Cardiac Specialist</h5>
-                                <span>Determine critical next steps for myocardial flags.</span>
-                            </div>
+                    <!-- Welcome Hero Screen containing the CENTRALIZED UPLOADER SYSTEM in the middle -->
+                    <div class="chatgpt-welcome-screen" id="chatgptWelcome" style="display: flex; flex-direction: column; width: 100%; max-width: 600px; margin: auto; gap: 20px; justify-content: center; height: 100%;">
+                        <div style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px;">
+                            <div class="chatgpt-welcome-logo">🧠</div>
+                            <h2>MedExplain Conversational Workspace</h2>
+                            <p style="font-size: 12.5px; color: var(--text-secondary); line-height: 1.6;">Drop medical report files or pharmacy scripts, or paste clinical readouts directly in the middle below to generate brief, jargon-free explanations instantly.</p>
                         </div>
+                        
+                        <!-- CENTRAL MIDDLE DRAG & DROP UPLOAD GRID -->
+                        <div class="dropzone-box" style="padding: 20px; border: 2px dashed rgba(255, 255, 255, 0.08); background-color: rgba(255, 255, 255, 0.005); margin: 5px 0;" onclick="triggerFileInput('centralFileInput')">
+                            <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="margin-bottom: 8px; color: var(--primary);"><path d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                            <h4 style="font-size: 13px; font-weight: 600; color: #ffffff;">Click to upload clinical files</h4>
+                            <p style="font-size: 11px; color: var(--text-secondary);">Supports .txt, .pdf, or script image files (Max 16MB)</p>
+                            <input type="file" id="centralFileInput" style="display:none" onchange="handleCentralFileChange(event)">
+                        </div>
+
+                        <!-- MIDDLE TEXTAREA PASTING -->
+                        <textarea id="centralTextarea" class="modal-textarea" style="height: 100px; padding: 12px; font-size: 12.5px;" placeholder="Or paste medical report values / prescription scripts here... e.g., Fasting Glucose: 185 mg/dL or Metformin 500mg daily..."></textarea>
+
+                        <!-- RUN SCANNER ACTION TRIGGER -->
+                        <button class="modal-action-btn btn-report-active" style="padding: 12px; font-size: 13.5px;" onclick="executeCentralScan()">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            Run Clinical AI Scanner
+                        </button>
                     </div>
                 </div>
 
@@ -1788,89 +1566,42 @@
                 </div>
             </section>
         </div>
-
-        <!-- SHARED DISCLAIMER FOOTER -->
-        <div class="disclaimer-banner">
-            <p id="globalDisclaimer">IMPORTANT MEDICAL DISCLAIMER: This platform is a clinical decision-support tool powered by medically trained AI models including PubMedBERT, BioViL, and Meditron-70B. It is provided for informational and educational purposes only and does NOT constitute medical advice. It does not replace a professional clinical diagnosis, treatment plan, or emergency healthcare intervention. Always consult a qualified physician or clinical professional for medical concerns. If you are experiencing a life-threatening emergency, call 911 or visit the nearest ER immediately.</p>
-        </div>
-
     </div>
 
-    <!-- --- OVERLAY 1: REPORT UPLOADER MODAL --- -->
-    <div id="reportModal" class="glass-overlay">
-        <div class="modal-card">
-            <button class="modal-close-btn" onclick="closeModal('reportModal')">
+    <!-- SHARED DISCLAIMER FOOTER -->
+    <div class="disclaimer-banner">
+        <p id="globalDisclaimer">IMPORTANT MEDICAL DISCLAIMER: This platform is a clinical decision-support tool powered by medically trained AI models including PubMedBERT, BioViL, and Meditron-70B. It is provided for informational and educational purposes only and does NOT constitute medical advice. It does not replace a professional clinical diagnosis, treatment plan, or emergency healthcare intervention. Always consult a qualified physician or clinical professional for medical concerns. If you are experiencing a life-threatening emergency, call 911 or visit the nearest ER immediately.</p>
+    </div>
+
+    <!-- --- INTERACTIVE AUTHENTICATION MODAL --- -->
+    <div id="authModal" class="glass-overlay">
+        <div class="auth-modal-card">
+            <button class="modal-close-btn" onclick="closeModal('authModal')">
                 <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
-            <div class="modal-header">
-                <h3>📁 Analyze Medical Report Sheet</h3>
-                <p>Drag and drop or paste text to parse parameters, flag anomalies, and select specialists.</p>
+            <div class="auth-tab-bar">
+                <div class="auth-tab active" id="tab-auth-signin" onclick="switchAuthTab('signin')">Sign In</div>
+                <div class="auth-tab" id="tab-auth-signup" onclick="switchAuthTab('signup')">Create Account</div>
             </div>
             
-            <div class="dropzone-box" onclick="triggerFileInput('reportFileInput')">
-                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-                <h4>Click to upload clinical files</h4>
-                <p>Supports .txt, .pdf, and image readouts (Max 16MB)</p>
-                <input type="file" id="reportFileInput" style="display:none" onchange="handleModalFileChange(event, 'report')">
+            <div id="authForm" style="display:flex; flex-direction:column; gap:15px;">
+                <div class="auth-input-group">
+                    <label>Email Address</label>
+                    <input type="email" class="auth-field" id="authEmail" placeholder="physician@medexplain.org">
+                </div>
+                <div class="auth-input-group">
+                    <label>Password</label>
+                    <input type="password" class="auth-field" id="authPassword" placeholder="••••••••">
+                </div>
+                <div class="auth-input-group" id="authNameGroup" style="display:none;">
+                    <label>Physician Full Name</label>
+                    <input type="text" class="auth-field" id="authName" placeholder="Dr. Elara Vance">
+                </div>
+                
+                <button class="modal-action-btn btn-report-active" style="margin-top:10px; padding:10px; font-size:13.5px;" onclick="executeMockAuth()">
+                    Continue Authentication
+                </button>
             </div>
-
-            <textarea id="reportTextarea" class="modal-textarea" placeholder="Or paste clinical readouts here... e.g., Fasting Glucose: 185 mg/dL, WBC: 14.5 K/uL"></textarea>
-            
-            <button class="modal-action-btn btn-report-active" onclick="executeClinicalScan('report')">
-                Run CheXNet & Med-PaLM Diagnostics
-            </button>
-        </div>
-    </div>
-
-    <!-- --- OVERLAY 2: PRESCRIPTION UPLOADER MODAL --- -->
-    <div id="rxModal" class="glass-overlay">
-        <div class="modal-card">
-            <button class="modal-close-btn" onclick="closeModal('rxModal')">
-                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
-            <div class="modal-header">
-                <h3>💊 Smart Prescription Decoder</h3>
-                <p>Upload prescription slips to verify timing schedules, details, and screen for critical drug interactions.</p>
-            </div>
-            
-            <div class="dropzone-box" onclick="triggerFileInput('rxFileInput')">
-                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-                <h4>Upload pharmacy script images or PDFs</h4>
-                <input type="file" id="rxFileInput" style="display:none" onchange="handleModalFileChange(event, 'rx')">
-            </div>
-
-            <textarea id="rxTextarea" class="modal-textarea" placeholder="Or paste script text here... e.g., Metformin 500mg daily, Lisinopril 10mg daily"></textarea>
-            
-            <button class="modal-action-btn btn-rx-active" onclick="executeClinicalScan('rx')">
-                Cross-Reference Drug-Drug Interaction Safety
-            </button>
-        </div>
-    </div>
-
-    <!-- --- FLOATING CHAT DRAWER --- -->
-    <div id="chatDrawer" class="chat-drawer">
-        <div class="chat-drawer-header">
-            <div style="display:flex; align-items:center; gap:8px;">
-                <div class="status-dot"></div>
-                <h4 style="font-family:'Outfit'; font-size:14px; font-weight:700;">Clinical Chat Companion</h4>
-            </div>
-            <button class="modal-close-btn" style="position:static;" onclick="toggleChatDrawer()">
-                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
-        </div>
-
-        <div class="chat-drawer-messages" id="chatMessages">
-            <div style="background-color:rgba(255,255,255,0.02); border:1px solid var(--border-color); border-radius:12px; padding:15px; font-size:12.5px; line-height:1.6; color:var(--text-secondary);">
-                💡 **Session Memory Active**<br>
-                You can ask questions about the analyzed blood parameters or pharmacy schedules in this panel. Answers are simplified into comforting, clear layperson explanations.
-            </div>
-        </div>
-
-        <div class="chat-drawer-input-bar">
-            <input type="text" class="chat-input" id="chatInput" style="height:38px; border-radius:8px;" placeholder="Ask clinical followups..." onkeydown="handleChatKeydown(event)">
-            <button class="send-btn" style="width:40px; height:38px; border-radius:8px;" onclick="sendChatMessage()">
-                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
-            </button>
         </div>
     </div>
 
@@ -1891,36 +1622,74 @@
             document.getElementById(id).style.display = 'none';
         }
 
-        function toggleChatDrawer() {
-            const drawer = document.getElementById('chatDrawer');
-            if (drawer.style.display === 'flex') {
-                drawer.style.display = 'none';
+        // Authentication controllers
+        function openAuthModal(tab) {
+            openModal('authModal');
+            switchAuthTab(tab);
+        }
+
+        function switchAuthTab(tab) {
+            document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+            const tabElement = document.getElementById(`tab-auth-${tab}`);
+            if (tabElement) tabElement.classList.add('active');
+
+            const nameGroup = document.getElementById('authNameGroup');
+            if (tab === 'signin') {
+                if (nameGroup) nameGroup.style.display = 'none';
             } else {
-                drawer.style.display = 'flex';
-                // Initialize default greet if empty
-                if (document.getElementById('chatMessages').children.length <= 1) {
-                    renderChatBubble("Hello! I am your clinical MedExplain AI. Upload clinical notes in the shortcuts panel and ask me follow-up questions here in simple, jargon-free English.", "bot");
-                }
+                if (nameGroup) nameGroup.style.display = 'flex';
             }
+        }
+
+        function executeMockAuth() {
+            const email = document.getElementById('authEmail').value.trim();
+            const password = document.getElementById('authPassword').value.trim();
+            const nameInput = document.getElementById('authName').value.trim();
+            
+            if (!email || !password) {
+                alert('Please enter your email and password.');
+                return;
+            }
+
+            const isSignUp = document.getElementById('tab-auth-signup').classList.contains('active');
+            const displayName = isSignUp && nameInput ? nameInput : 'Doctor';
+
+            // Simulated Authentication Success -> Update Header UI
+            const authHeaderGroup = document.getElementById('headerAuthGroup');
+            if (authHeaderGroup) {
+                authHeaderGroup.innerHTML = `
+                    <div class="user-logged-avatar">👤</div>
+                    <span style="font-size:13.5px; font-weight:600; color:var(--primary);">Welcome back, ${displayName}!</span>
+                `;
+            }
+
+            closeModal('authModal');
         }
 
         function triggerFileInput(id) {
             document.getElementById(id).click();
         }
 
-        // File upload event triggers inside modal
-        function handleModalFileChange(event, type) {
+        function showTerminalLog(type, msg) {
+            const term = document.getElementById('loaderTerminal');
+            term.innerHTML += `> ${msg}<br>`;
+            term.scrollTop = term.scrollHeight;
+        }
+
+        // Central file uploader handler
+        function handleCentralFileChange(event) {
             const file = event.target.files[0];
             if (!file) return;
 
-            showTerminalLog(type, `Uploading file asset: ${file.name} (${Math.round(file.size/1024)} KB)`);
+            // Open loader
+            document.getElementById('globalLoader').style.display = 'flex';
+            document.getElementById('loaderTitle').textContent = 'Uploading Clinical Document';
+            const term = document.getElementById('loaderTerminal');
+            term.innerHTML = `> Initiating secure file upload to pipeline...<br>`;
+            term.innerHTML += `> File: ${file.name} (${Math.round(file.size/1024)} KB)<br>`;
 
             const formData = new FormData();
             formData.append('file', file);
-
-            // Open loader
-            document.getElementById('globalLoader').style.display = 'flex';
-            document.getElementById('loaderTerminal').innerHTML = `> Preparing secure connection...<br>`;
 
             fetch('/upload_lab_file', {
                 method: 'POST',
@@ -1934,37 +1703,46 @@
                     return;
                 }
                 
-                document.getElementById(`${type}Textarea`).value = data.text;
+                const centralTextarea = document.getElementById('centralTextarea');
+                if (centralTextarea) {
+                    centralTextarea.value = data.text;
+                }
             })
             .catch(err => {
                 document.getElementById('globalLoader').style.display = 'none';
-                alert('Connection failure: ' + err.message);
+                alert('File upload failed: ' + err.message);
             });
         }
 
-        function showTerminalLog(type, msg) {
-            const term = document.getElementById('loaderTerminal');
-            term.innerHTML += `> ${msg}<br>`;
-            term.scrollTop = term.scrollHeight;
-        }
+        // Run full central clinical scanner
+        function executeCentralScan() {
+            const textarea = document.getElementById('centralTextarea');
+            if (!textarea) return;
+            const text = textarea.value.trim();
 
-        // Run full RAG & diagnostic scans
-        function executeClinicalScan(type) {
-            const text = document.getElementById(`${type}Textarea`).value.trim();
             if (!text) {
                 alert('Please enter clinical text or upload a file first.');
                 return;
             }
 
-            // Close inputs modal and open loader
-            closeModal(type === 'report' ? 'reportModal' : 'rxModal');
+            // Determine if Lab Report or Prescription based on keywords
+            const labKeywords = ['glucose', 'wbc', 'cbc', 'hemoglobin', 'cholesterol', 'pathology', 'lab', 'urine', 'blood', 'potassium', 'sodium', 'calcium', 'creatine', 'thyroid', 'rbc', 'hgb', 'platelets', 'abnormal', 'meq/l', 'uIU/ml', 'g/dl'];
+            let isLabReport = false;
+            const lowerText = text.toLowerCase();
+            for (const kw of labKeywords) {
+                if (lowerText.includes(kw)) {
+                    isLabReport = true;
+                    break;
+                }
+            }
+
+            // Open loader
             document.getElementById('globalLoader').style.display = 'flex';
-            document.getElementById('loaderTitle').textContent = type === 'report' ? 'Initiating Diagnostic Report Scan' : 'Initiating Rx Safety Screening';
-            
             const term = document.getElementById('loaderTerminal');
             term.innerHTML = '';
 
-            if (type === 'report') {
+            if (isLabReport) {
+                document.getElementById('loaderTitle').textContent = 'Initiating Diagnostic Report Scan';
                 showTerminalLog('report', '[1/4] Connecting to secure Google Document AI OCR engine...');
                 setTimeout(() => showTerminalLog('report', '[2/4] Executing PubMedBERT-Clinical-NER token extraction...'), 450);
                 setTimeout(() => showTerminalLog('report', '[3/4] Evaluating laboratory reference ranges against guideline bases...'), 900);
@@ -1983,15 +1761,53 @@
                             alert(data.error);
                             return;
                         }
-                        updateAnomalyTable(data);
+                        
+                        // Hide welcome screen uploader
+                        const welcome = document.getElementById('chatgptWelcome');
+                        if (welcome) welcome.style.display = 'none';
+
+                        // Start new conversation session for report
+                        const sessionTitle = `${data.category || 'Lab Report'} Analysis`;
+                        addChatGPTSession(sessionTitle);
+
+                        // Build bullets findings
+                        let findingsBullets = data.anomalies.map(a => `*   **${a.name}**: ${a.value} — *${capitalizeStatus(a.status)}* (${a.description})`).join('\n');
+                        if (!findingsBullets) {
+                            findingsBullets = "*   *No clinically abnormal reference bounds detected.*";
+                        }
+
+                        const briefSummary = `### 🧠 Executive Clinical Summary
+I have parsed and analyzed your uploaded **${data.category || 'Clinical Lab Sheet'}** using PubMedBERT clinical entities taggers and Med-PaLM reasoning weights.
+
+**Overall Category:** ${data.category || 'General Pathology'}
+**Synthesized Risk Level:** ${data.risk_level || 'Low'}
+**Recommended Specialist Consultation:** ${data.suggested_specialist || 'General Practitioner'}
+
+---
+
+### 📊 Key Diagnostic Findings
+${findingsBullets}
+
+---
+
+### 💡 Clinical Insights & Interpretation
+*   ${data.explanation}
+*   *Suggested Action Plan:* ${data.recommendations ? data.recommendations.join(' ') : 'Routine physical checkups recommended.'}
+
+---
+
+*This summary is a decision-support guidance. Verify critical parameters prior to changes in therapeutic plans.*`;
+
+                        renderChatGPTMessage(briefSummary, 'bot');
                     })
                     .catch(err => {
                         document.getElementById('globalLoader').style.display = 'none';
-                        alert('Connection Error: ' + err.message);
+                        alert('Report Scan Error: ' + err.message);
                     });
                 }, 2000);
 
             } else {
+                document.getElementById('loaderTitle').textContent = 'Initiating Rx Safety Screening';
                 showTerminalLog('rx', '[1/3] Mapping pharmacology tokens via PubMedBERT NER weights...');
                 setTimeout(() => showTerminalLog('rx', '[2/3] Extracting timing schedules and dosage units...'), 500);
                 setTimeout(() => showTerminalLog('rx', '[3/3] Cross-referencing RxDB for drug-drug interaction warning indices...'), 1000);
@@ -2009,15 +1825,47 @@
                             alert(data.error);
                             return;
                         }
-                        updatePrescriptionSchedule(data);
+
+                        // Hide welcome screen uploader
+                        const welcome = document.getElementById('chatgptWelcome');
+                        if (welcome) welcome.style.display = 'none';
+
+                        // Start new conversation session for prescription
+                        const sessionTitle = `${data.medications.length > 0 ? data.medications[0].name : 'Rx'} Decoder`;
+                        addChatGPTSession(sessionTitle);
+
+                        // Build medicines briefing bullets
+                        const medsBullets = data.medications.map(m => `*   💊 **${m.name}** (${m.dosage}): *${m.purpose}* — **Side Effects:** *${m.side_effects}* — **Timing:** *${m.timing}*`).join('\n');
+
+                        const safetyBrief = `### 🩺 Smart Prescription Safety Briefing
+I have decoded your uploaded **Prescription Slip** using PubMedBERT NER weights and mapped active pharmacokinetics interactions.
+
+**Extracted Medications:** ${data.medications.map(m => m.name).join(', ')}
+**Drug-Drug Interaction Risk:** ${data.risk_level}
+
+---
+
+### 📋 Active Drug Schedule Details
+${medsBullets}
+
+---
+
+### ⚠️ Interaction Safety Screening
+*   **Pharmacology Warning Status:** ${data.warning_msg}
+*   *Concomitant Safety Check:* Always consult your pharmacist prior to starting new concurrent treatments.
+
+---
+
+*This summary is a decision-support guidance. Verify critical parameters prior to changes in therapeutic plans.*`;
+
+                        renderChatGPTMessage(safetyBrief, 'bot');
                     })
                     .catch(err => {
                         document.getElementById('globalLoader').style.display = 'none';
-                        alert('Connection Error: ' + err.message);
+                        alert('Rx Scan Error: ' + err.message);
                     });
                 }, 1700);
             }
-        }
 
         // Normalize status bounds for case sensitive CSS Flag badges
         function capitalizeStatus(status) {
@@ -2325,6 +2173,35 @@ ${medsBullets}
 
         let currentSessionId = 'sarah';
 
+        function getWelcomeScreenHTML(sessionTitle) {
+            return `
+                <div class="chatgpt-welcome-screen" id="chatgptWelcome" style="display: flex; flex-direction: column; width: 100%; max-width: 600px; margin: auto; gap: 20px; justify-content: center; height: 100%;">
+                    <div style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px;">
+                        <div class="chatgpt-welcome-logo">🧠</div>
+                        <h2>MedExplain Conversational Workspace</h2>
+                        <p style="font-size: 12.5px; color: var(--text-secondary); line-height: 1.6;">Session: <strong>${sessionTitle || 'New Chat'}</strong> is active. Drop report files or paste clinical readouts directly in the middle below to generate brief, jargon-free explanations instantly.</p>
+                    </div>
+                    
+                    <!-- CENTRAL MIDDLE DRAG & DROP UPLOAD GRID -->
+                    <div class="dropzone-box" style="padding: 20px; border: 2px dashed rgba(255, 255, 255, 0.08); background-color: rgba(255, 255, 255, 0.005); margin: 5px 0;" onclick="triggerFileInput('centralFileInput')">
+                        <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="margin-bottom: 8px; color: var(--primary);"><path d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                        <h4 style="font-size: 13px; font-weight: 600; color: #ffffff;">Click to upload clinical files</h4>
+                        <p style="font-size: 11px; color: var(--text-secondary);">Supports .txt, .pdf, or script image files (Max 16MB)</p>
+                        <input type="file" id="centralFileInput" style="display:none" onchange="handleCentralFileChange(event)">
+                    </div>
+
+                    <!-- MIDDLE TEXTAREA PASTING -->
+                    <textarea id="centralTextarea" class="modal-textarea" style="height: 100px; padding: 12px; font-size: 12.5px;" placeholder="Or paste medical report values / prescription scripts here... e.g., Fasting Glucose: 185 mg/dL or Metformin 500mg daily..."></textarea>
+
+                    <!-- RUN SCANNER ACTION TRIGGER -->
+                    <button class="modal-action-btn btn-report-active" style="padding: 12px; font-size: 13.5px;" onclick="executeCentralScan()">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                        Run Clinical AI Scanner
+                    </button>
+                </div>
+            `;
+        }
+
         function switchChatGPTSession(sessId) {
             currentSessionId = sessId;
             document.querySelectorAll('.chatgpt-history-item').forEach(item => {
@@ -2343,14 +2220,8 @@ ${medsBullets}
                     renderChatGPTBubble(msg.text, msg.sender);
                 });
             } else {
-                // Show empty welcome state
-                feed.innerHTML = `
-                    <div class="chatgpt-welcome-screen" id="chatgptWelcome">
-                        <div class="chatgpt-welcome-logo">🧠</div>
-                        <h2>MedExplain Conversational Workspace</h2>
-                        <p>Session: <strong>${session ? session.title : 'New Chat'}</strong> is active. Ask follow-up clinical questions below.</p>
-                    </div>
-                `;
+                // Show empty welcome state with centralized uploader
+                feed.innerHTML = getWelcomeScreenHTML(session ? session.title : 'New Consultation');
             }
         }
 
@@ -2385,31 +2256,7 @@ ${medsBullets}
         function startNewChatGPTReadySession() {
             addChatGPTSession('New Clinical Case');
             const feed = document.getElementById('chatgptFeed');
-            feed.innerHTML = `
-                <div class="chatgpt-welcome-screen" id="chatgptWelcome">
-                    <div class="chatgpt-welcome-logo">🧠</div>
-                    <h2>MedExplain Conversational Workspace</h2>
-                    <p>Ask follow-up questions, query reference guidelines, or screen drug interactions. Click any action starter card below to initiate clinical inquiries instantly.</p>
-                    <div class="chatgpt-suggestions-grid">
-                        <div class="chatgpt-suggestion-card" onclick="prefillChatGPTInput('Explain blood glucose levels')">
-                            <h5>📊 Explain Glucose</h5>
-                            <span>Identify reference bounds.</span>
-                        </div>
-                        <div class="chatgpt-suggestion-card" onclick="prefillChatGPTInput('Check medication side effects')">
-                            <h5>💊 Medication Side Effects</h5>
-                            <span>Review normal side effects indices.</span>
-                        </div>
-                        <div class="chatgpt-suggestion-card" onclick="prefillChatGPTInput('Read chest X-ray markings')">
-                            <h5>🫁 Pulmonary Markings</h5>
-                            <span>Review radiographic opacities findings.</span>
-                        </div>
-                        <div class="chatgpt-suggestion-card" onclick="prefillChatGPTInput('Explain cardiac ST-elevation findings')">
-                            <h5>🩺 Cardiac STEMI ECG</h5>
-                            <span>Summarize cardiac guidelines.</span>
-                        </div>
-                    </div>
-                </div>
-            `;
+            feed.innerHTML = getWelcomeScreenHTML('New Clinical Case');
         }
 
         function prefillChatGPTInput(prompt) {
@@ -2518,9 +2365,9 @@ ${medsBullets}
             timeline.appendChild(point);
         }
 
-        // Initialize ChatGPT default session
+        // Initialize ChatGPT default session to a clean uploader consultation landing page
         window.addEventListener('DOMContentLoaded', () => {
-            switchChatGPTSession('sarah');
+            startNewChatGPTReadySession();
         });
     </script>
 </body>
