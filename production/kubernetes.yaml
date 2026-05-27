@@ -1,0 +1,204 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: medai-clinical
+  labels:
+    security-zone: hipaa-secure-trust
+
+---
+# --- ConfigMap: Application Configurations ---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: medai-core-config
+  namespace: medai-clinical
+data:
+  ENV_STATE: "production"
+  FASTAPI_LOG_LEVEL: "INFO"
+  PINECONE_INDEX: "medical-consensus-guidelines"
+  CLINICAL_NLP_MODEL: "PubMedBERT-Clinical-NER"
+  CLINICAL_REASONING_MODEL: "Med-PaLM 2 / Meditron-70B"
+
+---
+# --- Secret: Sensitive DB Credentials & Encryption Keys ---
+# In production, these should be generated dynamically via Helm secrets, Vault, or AWS Secrets CSI
+apiVersion: v1
+kind: Secret
+metadata:
+  name: medai-core-secrets
+  namespace: medai-clinical
+type: Opaque
+data:
+  # Base64 encoded secrets
+  POSTGRES_PASSWORD_B64: "REJfe1NFQ1VSRV9QQVNTV09SRF9TSEExMjh9Cg=="
+  MONGO_PASSWORD_B64: "TU9OR09fe1NFQ1VSRV9QQVNTV09SRF9TSEExMjh9Cg=="
+  PINECONE_API_KEY_B64: "cGNfa2V5X2E4ODFiYzMyOWE="
+  DB_SYM_DECRYPT_KEY_B64: "c2VjcmV0LWNyeXB0by1rZXktYmFzZTY0LXVuaXF1ZQ=="
+
+---
+# --- Deployment: FastAPI AI Core Microservice ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-ai-core
+  namespace: medai-clinical
+  labels:
+    app: fastapi-ai-core
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: fastapi-ai-core
+  template:
+    metadata:
+      labels:
+        app: fastapi-ai-core
+    spec:
+      containers:
+      - name: fastapi-core-container
+        image: 123456789012.dkr.ecr.us-east-1.amazonaws.com/medai/fastapi-ai-core:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8000
+          name: http-port
+        resources:
+          limits:
+            cpu: "2"
+            memory: 4Gi
+          requests:
+            cpu: "500m"
+            memory: 1Gi
+        env:
+        - name: ENV_STATE
+          valueFrom:
+            configMapKeyRef:
+              name: medai-core-config
+              key: ENV_STATE
+        - name: PINECONE_INDEX
+          valueFrom:
+            configMapKeyRef:
+              name: medai-core-config
+              key: PINECONE_INDEX
+        - name: PINECONE_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: medai-core-secrets
+              key: PINECONE_API_KEY_B64
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: medai-core-secrets
+              key: POSTGRES_PASSWORD_B64
+        
+        # Kubernetes Probes for Automated Failover & Self-Healing
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 8000
+          initialDelaySeconds: 15
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 20
+          
+---
+# --- Service: FastAPI Backend ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fastapi-ai-core-svc
+  namespace: medai-clinical
+spec:
+  type: ClusterIP
+  selector:
+    app: fastapi-ai-core
+  ports:
+  - port: 8000
+    targetPort: 8000
+    name: http
+
+---
+# --- Deployment: Node.js / GraphQL API Entry Gateway ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-api-gateway
+  namespace: medai-clinical
+  labels:
+    app: node-api-gateway
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: node-api-gateway
+  template:
+    metadata:
+      labels:
+        app: node-api-gateway
+    spec:
+      containers:
+      - name: gateway-container
+        image: 123456789012.dkr.ecr.us-east-1.amazonaws.com/medai/node-api-gateway:latest
+        ports:
+        - containerPort: 8080
+          name: gw-port
+        resources:
+          limits:
+            cpu: "1"
+            memory: 2Gi
+          requests:
+            cpu: "250m"
+            memory: 512Mi
+        env:
+        - name: FASTAPI_BACKEND_URL
+          value: "http://fastapi-ai-core-svc.medai-clinical.svc.cluster.local:8000"
+
+---
+# --- Service: Node.js Gateway ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-api-gateway-svc
+  namespace: medai-clinical
+spec:
+  type: NodePort
+  selector:
+    app: node-api-gateway
+  ports:
+  - port: 8080
+    targetPort: 8080
+    name: gw-http
+
+---
+# --- Ingress: Secure Ingress Controller with SSL/TLS Termination ---
+# Enforces HTTPS at cluster perimeter to comply with HIPAA transit encryption (FIPS 140-2)
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: medai-ingress
+  namespace: medai-clinical
+  annotations:
+    kubernetes.io/ingress.class: "alb"
+    alb.ingress.kubernetes.io/scheme: "internet-facing"
+    alb.ingress.kubernetes.io/target-type: "ip"
+    alb.ingress.kubernetes.io/certificate-arn: "arn:aws:acm:us-east-1:123456789012:certificate/acm-arn-here"
+    alb.ingress.kubernetes.io/ssl-policy: "ELBSecurityPolicy-TLS-1-2-Ext-2018-06"
+spec:
+  tls:
+  - hosts:
+    - "clinical.medaishield.com"
+    secretName: medai-tls-secret
+  rules:
+  - host: "clinical.medaishield.com"
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: node-api-gateway-svc
+            port:
+              number: 8080

@@ -1,0 +1,44 @@
+LABORATORY REPORT
+
+Patient: John Doe
+Date: October 21, 2025
+Lab ID: 12345
+
+COMPLETE BLOOD COUNT (CBC)
+--------------------------------
+White Blood Cells (WBC): 7.2 K/uL
+Red Blood Cells (RBC): 4.5 M/uL
+Hemoglobin (Hgb): 14.2 g/dL
+Hematocrit (Hct): 42.1%
+Platelets: 285 K/uL
+
+DIFFERENTIAL
+------------
+Neutrophils: 65%
+Lymphocytes: 25%
+Monocytes: 8%
+Eosinophils: 2%
+
+BASIC METABOLIC PANEL
+---------------------
+Glucose: 95 mg/dL
+Blood Urea Nitrogen (BUN): 15 mg/dL
+Creatinine: 0.9 mg/dL
+Sodium (Na): 140 mEq/L
+Potassium (K): 4.2 mEq/L
+Chloride (Cl): 102 mEq/L
+Carbon Dioxide (CO2): 24 mEq/L
+
+LIVER FUNCTION TESTS
+--------------------
+Alanine Aminotransferase (ALT): 25 U/L
+Aspartate Aminotransferase (AST): 30 U/L
+Total Bilirubin: 0.8 mg/dL
+Alkaline Phosphatase: 85 U/L
+
+COMMENTS
+--------
+All values are within normal limits. No abnormalities detected.
+
+Lab Technician: Dr. Smith
+Reviewed by: Dr. Johnson

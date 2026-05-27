@@ -1,0 +1,111 @@
+version: '3.8'
+
+services:
+  # 1. API Entry Gateway / Reverse Proxy (Node.js Gateway / GraphQL)
+  api-gateway:
+    image: node:18-alpine
+    container_name: medai-api-gateway
+    working_dir: /app
+    volumes:
+      - ./gateway:/app
+    ports:
+      - "8080:8080"
+    environment:
+      - NODE_ENV=production
+      - FASTAPI_BACKEND_URL=http://fastapi-ai-core:8000
+      - REDIS_URL=redis://redis-cache:6379/0
+      - JWT_SECRET_KMS_ARN=arn:aws:kms:us-east-1:123456789012:key/auth-secret
+    depends_on:
+      - fastapi-ai-core
+      - redis-cache
+    restart: always
+
+  # 2. FastAPI AI Engine Microservice
+  fastapi-ai-core:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.production
+    container_name: medai-fastapi-ai-core
+    expose:
+      - "8000"
+    environment:
+      - ENV_STATE=production
+      - DB_SECRET_KEY_ARN=arn:aws:kms:us-east-1:123456789012:key/db-crypto-secret
+      - POSTGRES_URL=postgresql://postgres_user:${DB_PASSWORD}@postgres-db:5432/medai_clinical
+      - MONGO_AUDIT_URL=mongodb://mongo_audit_user:${MONGO_PASSWORD}@mongodb-audit:27017/hipaa_audit
+      - PINECONE_API_KEY=pc_key_a881bc329a
+      - PINECONE_INDEX=medical-consensus-guidelines
+      - VLLM_MEDITRON_URL=http://vllm-host:8000/v1
+    depends_on:
+      - postgres-db
+      - mongodb-audit
+    restart: always
+
+  # 3. PostgreSQL Encrypted Storage (Patient Records, Profiles, Diagnoses)
+  postgres-db:
+    image: postgres:15-alpine
+    container_name: medai-postgres-db
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres_user
+      - POSTGRES_PASSWORD=DB_SECURE_PASSWORD_8812a
+      - POSTGRES_DB=medai_clinical
+    volumes:
+      - postgres_clinical_data:/var/lib/postgresql/data
+      - ./schema.sql:/docker-entrypoint-initdb.d/init.sql
+    restart: always
+
+  # 4. MongoDB Storage (Flexible Lab Results, Unstructured records, HIPAA Audit Trails)
+  mongodb-audit:
+    image: mongo:6.0-alpine
+    container_name: medai-mongodb-audit
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=mongo_audit_user
+      - MONGO_INITDB_ROOT_PASSWORD=MONGO_SECURE_PASSWORD_9921b
+      - MONGO_INITDB_DATABASE=hipaa_audit
+    volumes:
+      - mongo_audit_data:/data/db
+    restart: always
+
+  # 5. Redis Broker Cache (RAG Context caching, UI sessions, request rate limiter)
+  redis-cache:
+    image: redis:7-alpine
+    container_name: medai-redis-cache
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_cache_data:/data
+    restart: always
+
+  # 6. Local vLLM Host for High-Performance GPU Meditron-70B Inference
+  # Running in production requires NVIDIA Container Toolkit & compatible GPU hardware
+  vllm-host:
+    image: vllm/vllm-openai:latest
+    container_name: medai-vllm-host
+    volumes:
+      - ~/.cache/huggingface:/root/.cache/huggingface
+    environment:
+      - MODEL=epfl-llm/meditron-70b
+      - HUGGING_FACE_HUB_TOKEN=hf_token_a881bc329a
+    ports:
+      - "8001:8000"
+    ipc: host
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    restart: always
+
+volumes:
+  postgres_clinical_data:
+    driver: local
+  mongo_audit_data:
+    driver: local
+  redis_cache_data:
+    driver: local
