@@ -1082,6 +1082,261 @@
             70% { box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
             100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
         }
+
+        /* --- ChatGPT UI Layout Styling --- */
+        .chatgpt-container {
+            display: flex;
+            height: calc(100vh - 190px);
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            animation: overlayFadeIn 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .chatgpt-sidebar {
+            width: 250px;
+            background-color: #04080c;
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            padding: 15px;
+            gap: 15px;
+            flex-shrink: 0;
+        }
+
+        .chatgpt-new-chat-btn {
+            background-color: rgba(255, 255, 255, 0.015);
+            border: 1px dashed rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            padding: 10px;
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.25s ease;
+        }
+
+        .chatgpt-new-chat-btn:hover {
+            border-color: var(--primary);
+            background-color: rgba(16, 185, 129, 0.04);
+            transform: translateY(-1px);
+        }
+
+        .chatgpt-history-list {
+            flex-grow: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .chatgpt-history-item {
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid transparent;
+        }
+
+        .chatgpt-history-item:hover {
+            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        .chatgpt-history-item.active {
+            color: #ffffff;
+            background-color: rgba(16, 185, 129, 0.05);
+            border-color: rgba(16, 185, 129, 0.15);
+        }
+
+        .chatgpt-main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--card-bg);
+            position: relative;
+        }
+
+        .chatgpt-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.005);
+        }
+
+        .chatgpt-header h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .chatgpt-feed {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 20px 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .chatgpt-welcome-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+            gap: 20px;
+            max-width: 580px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .chatgpt-welcome-logo {
+            font-size: 24px;
+            color: var(--primary);
+            background-color: rgba(16, 185, 129, 0.08);
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+        }
+
+        .chatgpt-welcome-screen h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .chatgpt-welcome-screen p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .chatgpt-suggestions-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .chatgpt-suggestion-card {
+            background-color: rgba(255, 255, 255, 0.01);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 12px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .chatgpt-suggestion-card:hover {
+            border-color: var(--primary);
+            background-color: rgba(16, 185, 129, 0.02);
+            transform: translateY(-1.5px);
+        }
+
+        .chatgpt-suggestion-card h5 {
+            font-size: 12px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+
+        .chatgpt-suggestion-card span {
+            font-size: 10.5px;
+            color: var(--text-secondary);
+        }
+
+        .chatgpt-input-area {
+            padding: 15px 25px;
+            background-color: rgba(0, 0, 0, 0.15);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .chatgpt-input-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 720px;
+            display: flex;
+            align-items: center;
+        }
+
+        .chatgpt-chat-input {
+            width: 100%;
+            height: 44px;
+            background-color: #04080c;
+            border: 1px solid var(--border-color);
+            border-radius: 22px;
+            padding: 0 50px 0 20px;
+            color: #ffffff;
+            font-size: 13px;
+            outline: none;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            transition: all 0.25s ease;
+        }
+
+        .chatgpt-chat-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.15);
+        }
+
+        .chatgpt-send-btn {
+            position: absolute;
+            right: 8px;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            border: none;
+            color: #ffffff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .chatgpt-send-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        .chatgpt-disclaimer {
+            font-size: 10px;
+            color: var(--text-secondary);
+        }
     </style>
 </head>
 <body>
@@ -1096,11 +1351,11 @@
         </div>
 
         <ul class="nav-tabs">
-            <li class="nav-tab active" onclick="switchMainTab('dashboard')">Dashboard</li>
-            <li class="nav-tab" onclick="openModal('reportModal')">Patients</li>
-            <li class="nav-tab" onclick="openModal('reportModal')">Reports</li>
-            <li class="nav-tab" onclick="openModal('rxModal')">Schedule</li>
-            <li class="nav-tab" onclick="toggleChatDrawer()">Settings</li>
+            <li class="nav-tab active" id="tab-dashboard" onclick="switchMainTab('dashboard')">Dashboard</li>
+            <li class="nav-tab" id="tab-chat" onclick="switchMainTab('chat')">ChatGPT Assistant</li>
+            <li class="nav-tab" onclick="openModal('reportModal')">Upload Report</li>
+            <li class="nav-tab" onclick="openModal('rxModal')">Decode Rx</li>
+            <li class="nav-tab" onclick="toggleChatDrawer()">Emergency Panel</li>
         </ul>
 
         <div class="header-actions">
@@ -1183,6 +1438,7 @@
         </div>
 
         <!-- MAIN DASHBOARD GRID -->
+        <div id="dashboardView">
         <main class="dashboard-grid">
 
             <!-- LEFT: BLOOD TEST REPORTS ANOMALY TABLE -->
@@ -1392,7 +1648,7 @@
                         <!-- Consultations -->
                         <div class="timeline-track-row">
                             <span class="track-label">Consults</span>
-                            <div class="track-timeline">
+                            <div class="track-timeline" id="consultsTimeline">
                                 <div class="timeline-point point-blue" style="left: 10%;" title="Oct 12">
                                     <div class="timeline-point-tag">Oct 12</div>
                                 </div>
@@ -1411,7 +1667,7 @@
                         <!-- Labs -->
                         <div class="timeline-track-row">
                             <span class="track-label">Labs</span>
-                            <div class="track-timeline">
+                            <div class="track-timeline" id="labsTimeline">
                                 <div class="timeline-point point-green" style="left: 15%;" title="Nov 3">
                                     <div class="timeline-point-tag">Nov 3</div>
                                 </div>
@@ -1430,7 +1686,7 @@
                         <!-- Medications -->
                         <div class="timeline-track-row">
                             <span class="track-label">Meds</span>
-                            <div class="track-timeline">
+                            <div class="track-timeline" id="medsTimeline">
                                 <div class="timeline-point point-orange" style="left: 20%;" title="Active"></div>
                                 <div class="timeline-point point-orange" style="left: 50%;" title="Active"></div>
                                 <div class="timeline-point point-orange" style="left: 75%;" title="Active"></div>
@@ -1451,6 +1707,87 @@
             </div>
 
         </main>
+        </div>
+
+        <!-- CHATGPT UI CONVERSATIONAL WORKSPACE -->
+        <div id="chatgptView" style="display:none;" class="chatgpt-container">
+            <!-- Left Sidebar: Chat Sessions History -->
+            <aside class="chatgpt-sidebar">
+                <button class="chatgpt-new-chat-btn" onclick="startNewChatGPTReadySession()">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4"></path></svg>
+                    New Consultation
+                </button>
+                <div class="chatgpt-history-list" id="chatgptHistoryList">
+                    <div class="chatgpt-history-item active" id="sess-sarah" onclick="switchChatGPTSession('sarah')">
+                        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                        Sarah J. Miller - CBC Report
+                    </div>
+                    <div class="chatgpt-history-item" id="sess-john" onclick="switchChatGPTSession('john')">
+                        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                        John Doe - Metabolic Panel
+                    </div>
+                    <div class="chatgpt-history-item" id="sess-arthur" onclick="switchChatGPTSession('arthur')">
+                        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                        Arthur Dent - Cardiac STEMI ECG
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Right Main Pane: ChatGPT Workspace -->
+            <section class="chatgpt-main">
+                <!-- Header -->
+                <div class="chatgpt-header">
+                    <h3>
+                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9.813 15.904L9 21m0 0l-.813-5.096A9.003 9.003 0 1121 12c0 1.295-.273 2.527-.764 3.64M9 21a9.003 9.003 0 01-5.187-5.096"></path></svg>
+                        Clinical Decision Support Companion
+                    </h3>
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <div class="status-dot"></div>
+                        <span style="font-size:10.5px; color:var(--primary); font-weight:600; text-transform:uppercase; letter-spacing:0.5px;">Connected to Meditron-70B</span>
+                    </div>
+                </div>
+
+                <!-- Chat Messages Scroll Feed -->
+                <div class="chatgpt-feed" id="chatgptFeed">
+                    <!-- Welcome Hero Screen -->
+                    <div class="chatgpt-welcome-screen" id="chatgptWelcome">
+                        <div class="chatgpt-welcome-logo">🧠</div>
+                        <h2>MedExplain Conversational Workspace</h2>
+                        <p>Ask follow-up questions, query reference guidelines, or screen drug interactions. Click any action starter card below to initiate clinical inquiries instantly.</p>
+                        
+                        <div class="chatgpt-suggestions-grid">
+                            <div class="chatgpt-suggestion-card" onclick="prefillChatGPTInput('Briefly explain Sarah\'s Complete Blood Count anomalies')">
+                                <h5>📊 Explain CBC Anomalies</h5>
+                                <span>Summarize the hemoglobin and WBC flags.</span>
+                            </div>
+                            <div class="chatgpt-suggestion-card" onclick="prefillChatGPTInput('Check Metformin drug-drug interactions with other prescribed drugs')">
+                                <h5>💊 Screen Drug Interactions</h5>
+                                <span>Cross-reference prescription database guidelines.</span>
+                            </div>
+                            <div class="chatgpt-suggestion-card" onclick="prefillChatGPTInput('Explain chest X-ray right lower lobe opacity findings in pneumonia')">
+                                <h5>🫁 Analyze Pneumonia Markings</h5>
+                                <span>Read radiographic infiltrates alignment notes.</span>
+                            </div>
+                            <div class="chatgpt-suggestion-card" onclick="prefillChatGPTInput('What specialist should Arthur consult for ST-elevation ECG anomalies?')">
+                                <h5>🩺 Suggest Cardiac Specialist</h5>
+                                <span>Determine critical next steps for myocardial flags.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Input Area -->
+                <div class="chatgpt-input-area">
+                    <div class="chatgpt-input-wrapper">
+                        <input type="text" class="chatgpt-chat-input" id="chatgptChatInput" placeholder="Ask follow-up clinical questions..." onkeydown="handleChatGPTKeydown(event)">
+                        <button class="chatgpt-send-btn" onclick="sendChatGPTChatMessage()">
+                            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                        </button>
+                    </div>
+                    <span class="chatgpt-disclaimer">ChatGPT MedExplain model companion. Verify critical clinical parameters before making medical recommendations.</span>
+                </div>
+            </section>
+        </div>
 
         <!-- SHARED DISCLAIMER FOOTER -->
         <div class="disclaimer-banner">
@@ -1682,22 +2019,35 @@
             }
         }
 
+        // Normalize status bounds for case sensitive CSS Flag badges
+        function capitalizeStatus(status) {
+            if (!status) return 'Normal';
+            const s = status.toUpperCase();
+            if (s === 'CRITICAL') return 'Critical';
+            if (s === 'LOW') return 'Low';
+            if (s === 'HIGH') return 'High';
+            return 'Normal';
+        }
+
         // Dynamically update Blood test anomaly table rows
         function updateAnomalyTable(data) {
             const tbody = document.getElementById('dashboardTableBody');
             tbody.innerHTML = ''; // Clean old placeholder rows
             
             const todayStr = new Date().toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' });
+            const dayMonthStr = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 
             if (data.anomalies.length > 0) {
                 data.anomalies.forEach(anomaly => {
                     const row = document.createElement('tr');
                     row.className = 'anomaly-row';
+                    const mappedStatus = capitalizeStatus(anomaly.status);
+                    
                     row.innerHTML = `
                         <td style="font-weight:600; color:#ffffff;">${anomaly.name}</td>
                         <td style="color:var(--text-secondary);">${todayStr}</td>
                         <td style="color:${anomaly.color === 'red' ? '#ef4444' : (anomaly.color === 'orange' ? '#f59e0b' : '#10b981')}; font-weight:600;">${anomaly.value}</td>
-                        <td><span class="flag-badge flag-${anomaly.status}">${anomaly.status}</span></td>
+                        <td><span class="flag-badge flag-${mappedStatus}">${mappedStatus}</span></td>
                         <td style="color:var(--text-secondary); font-size:12.5px;">${anomaly.description}</td>
                     `;
                     tbody.appendChild(row);
@@ -1706,9 +2056,45 @@
                 tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding: 20px; color:var(--text-secondary);">No out-of-range parameters found. Report is optimal!</td></tr>`;
             }
 
-            // Push summary details into Chat Assistant as direct context matching
-            toggleChatDrawer();
-            renderChatBubble(`**Clinical Synthesizer matched new report:**\nCategory: ${data.category}\nSynthesized Risk: ${data.risk_level}\nSpecialist suggested: ${data.suggested_specialist}\n\n**Brief Explanation:**\n${data.explanation}`, 'bot');
+            // Add dynamic event point to Patient Timeline Labs Track
+            addTimelinePoint('labs', 'Lab report uploaded', dayMonthStr, 'green');
+
+            // Auto-redirect to the premium ChatGPT view and present a brief clinical explanation
+            switchMainTab('chat');
+
+            // Start a new chat session for this report
+            const sessionTitle = `${data.category || 'Lab Report'} Analysis`;
+            addChatGPTSession(sessionTitle);
+
+            // Build bulleted, beautiful brief explanation in the ChatGPT Feed
+            let findingsBullets = data.anomalies.map(a => `*   **${a.name}**: ${a.value} — *${capitalizeStatus(a.status)}* (${a.description})`).join('\n');
+            if (!findingsBullets) {
+                findingsBullets = "*   *No clinically abnormal reference bounds detected.*";
+            }
+
+            const briefSummary = `### 🧠 Executive Clinical Summary
+I have parsed and analyzed your uploaded **${data.category || 'Clinical Lab Sheet'}** using PubMedBERT clinical entities taggers and Med-PaLM reasoning weights.
+
+**Overall Category:** ${data.category || 'General Pathology'}
+**Synthesized Risk Level:** ${data.risk_level || 'Low'}
+**Recommended Specialist Consultation:** ${data.suggested_specialist || 'General Practitioner'}
+
+---
+
+### 📊 Key Diagnostic Findings
+${findingsBullets}
+
+---
+
+### 💡 Clinical Insights & Interpretation
+*   ${data.explanation}
+*   *Suggested Action Plan:* ${data.recommendations ? data.recommendations.join(' ') : 'Routine physical checkups recommended.'}
+
+---
+
+*This summary is a decision-support guidance. Verify critical parameters prior to changes in therapeutic plans.*`;
+
+            renderChatGPTMessage(briefSummary, 'bot');
         }
 
         // Dynamically update Prescription Timing Schedule cards
@@ -1716,20 +2102,57 @@
             const list = document.querySelector('.rx-cards-list');
             list.innerHTML = ''; // Clean old cards
 
+            const dayMonthStr = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+
             data.medications.forEach(med => {
                 const card = document.createElement('div');
-                card.className = `rx-pill-item med-${med.name.toLowerCase()}`;
+                const nameLower = med.name.toLowerCase();
+                card.className = `rx-pill-item med-${nameLower}`;
                 
-                // Color formatting
-                let colorClass = 'med-metformin';
+                // Generate default and dynamic styles for arbitrary medications
+                let widthPct = 75;
+                let gradient = 'linear-gradient(90deg, var(--primary), var(--accent-blue))';
+                let iconBg = 'rgba(16, 185, 129, 0.1)';
+                let iconColor = 'var(--primary)';
                 let icon = '💊';
-                if (med.name.toLowerCase() === 'lisinopril') { colorClass = 'med-lisinopril'; icon = '❤️'; }
-                if (med.name.toLowerCase() === 'atorvastatin') { colorClass = 'med-atorvastatin'; icon = '🩺'; }
+
+                if (nameLower === 'metformin') {
+                    icon = '💊';
+                    iconBg = 'rgba(16, 185, 129, 0.1)';
+                    iconColor = 'var(--primary)';
+                    gradient = 'linear-gradient(90deg, var(--primary), var(--accent-blue))';
+                    widthPct = 85;
+                } else if (nameLower === 'lisinopril') {
+                    icon = '❤️';
+                    iconBg = 'rgba(14, 165, 233, 0.1)';
+                    iconColor = 'var(--accent-blue)';
+                    gradient = 'linear-gradient(90deg, var(--accent-blue), #818cf8)';
+                    widthPct = 40;
+                } else if (nameLower === 'atorvastatin') {
+                    icon = '🩺';
+                    iconBg = 'rgba(245, 158, 11, 0.1)';
+                    iconColor = 'var(--low)';
+                    gradient = 'linear-gradient(90deg, var(--low), #fb7185)';
+                    widthPct = 95;
+                } else {
+                    // Generate dynamic HSL colors using string hashing to support arbitrary drugs beautifully
+                    let hash = 0;
+                    for (let i = 0; i < nameLower.length; i++) {
+                        hash = nameLower.charCodeAt(i) + ((hash << 5) - hash);
+                    }
+                    const hue = Math.abs(hash % 360);
+                    
+                    icon = '💊';
+                    iconBg = `hsla(${hue}, 70%, 50%, 0.1)`;
+                    iconColor = `hsl(${hue}, 70%, 60%)`;
+                    gradient = `linear-gradient(90deg, hsl(${hue}, 70%, 60%), hsl(${(hue + 60) % 360}, 70%, 65%))`;
+                    widthPct = Math.abs((hash >> 4) % 60) + 35; // 35% to 95%
+                }
 
                 card.innerHTML = `
                     <div class="rx-pill-header">
                         <div class="rx-pill-name">
-                            <div class="rx-pill-icon">${icon}</div>
+                            <div class="rx-pill-icon" style="background-color: ${iconBg}; color: ${iconColor};">${icon}</div>
                             <div>
                                 <h4>${med.name}</h4>
                                 <span>${med.purpose}</span>
@@ -1738,7 +2161,7 @@
                         <span class="rx-timing-label">${med.dosage}</span>
                     </div>
                     <div class="rx-schedule-track">
-                        <div class="schedule-progress"></div>
+                        <div class="schedule-progress" style="background: ${gradient}; width: ${widthPct}%;"></div>
                     </div>
                     <div class="rx-timeline-indicators">
                         <span>Timing Instructions:</span>
@@ -1748,13 +2171,44 @@
                 list.appendChild(card);
             });
 
+            // Trigger dynamic meds timeline point in Patient Chart
+            addTimelinePoint('meds', 'Medication active schedule loaded', dayMonthStr, 'orange');
+
             // If warning exists, alert user
             if (data.interactions.length > 0) {
                 alert(`⚠️ PHARMACOLOGICAL WARNING:\n${data.warning_msg}`);
             }
 
-            toggleChatDrawer();
-            renderChatBubble(`**Rx Decoder loaded new prescription:**\nExtracted medications: ${data.medications.map(m=>m.name).join(', ')}\n\n**Safety screening details:**\n${data.warning_msg}`, 'bot');
+            // Auto-redirect to the premium ChatGPT view and present a brief prescription safety briefing
+            switchMainTab('chat');
+
+            const sessionTitle = `${data.medications.length > 0 ? data.medications[0].name : 'Rx'} Decoder`;
+            addChatGPTSession(sessionTitle);
+
+            // Build bulleted, beautiful brief explanation of the prescription in the ChatGPT Feed
+            const medsBullets = data.medications.map(m => `*   💊 **${m.name}** (${m.dosage}): *${m.purpose}* — **Side Effects:** *${m.side_effects}* — **Timing:** *${m.timing}*`).join('\n');
+            const safetyBrief = `### 🩺 Smart Prescription Safety Briefing
+I have decoded your uploaded **Prescription Slip** using PubMedBERT NER weights and mapped active pharmacokinetics interactions.
+
+**Extracted Medications:** ${data.medications.map(m => m.name).join(', ')}
+**Drug-Drug Interaction Risk:** ${data.risk_level}
+
+---
+
+### 📋 Active Drug Schedule Details
+${medsBullets}
+
+---
+
+### ⚠️ Interaction Safety Screening
+*   **Pharmacology Warning Status:** ${data.warning_msg}
+*   *Concomitant Safety Check:* Always consult your pharmacist prior to starting new concurrent treatments.
+
+---
+
+*This summary is a decision-support guidance. Verify critical parameters prior to changes in therapeutic plans.*`;
+
+            renderChatGPTMessage(safetyBrief, 'bot');
         }
 
         // Chat Messenger handlers
@@ -1828,9 +2282,246 @@
 
         function switchMainTab(tab) {
             document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-            event.target.classList.add('active');
-            alert(`Switched workspace context to: ${tab.toUpperCase()}`);
+            const activeTab = document.getElementById(`tab-${tab}`);
+            if (activeTab) {
+                activeTab.classList.add('active');
+            }
+            
+            const dash = document.getElementById('dashboardView');
+            const chatgpt = document.getElementById('chatgptView');
+            if (tab === 'dashboard') {
+                dash.style.display = 'block';
+                chatgpt.style.display = 'none';
+            } else {
+                dash.style.display = 'none';
+                chatgpt.style.display = 'flex';
+            }
         }
+
+        // --- ChatGPT UI Helper Functions ---
+        let chatgptSessions = {
+            'sarah': {
+                title: 'Sarah J. Miller - CBC Report',
+                history: [
+                    { sender: 'user', text: 'Explain Sarah\'s blood counts.' },
+                    { sender: 'bot', text: '### Complete Blood Count Assessment\n*   **Hemoglobin**: 10.2 g/dL (Low). Suspected mild anemia, contributing to potential feelings of chronic fatigue.\n*   **White Blood Cells (WBC)**: 14.8 K/uL (High). Elevated limits indicate active immunological response, concerning for infection.\n*   *Suggested Action Plan:* Recommend routine clinical follow-up for complete infectious panels.' }
+                ]
+            },
+            'john': {
+                title: 'John Doe - Metabolic Panel',
+                history: [
+                    { sender: 'user', text: 'Explain John\'s fasting glucose level.' },
+                    { sender: 'bot', text: '### Metabolic Panel Assessment\n*   **Fasting Glucose**: 185 mg/dL (High). Levels are significantly above reference limits (100 mg/dL), indicative of hyperglycemia.\n*   *Suggested Action Plan:* Urgent referral to an endocrinologist for diabetes screening and diet adjustment.' }
+                ]
+            },
+            'arthur': {
+                title: 'Arthur Dent - Cardiac STEMI ECG',
+                history: [
+                    { sender: 'user', text: 'Summarize ECG ST segment findings.' },
+                    { sender: 'bot', text: '### ECG ST Segment Assessment\n*   **ECG Flag**: ST segment elevation of 2.1 mm detected in leads V1-V3.\n*   **Clinical Summary**: STEMI warning indices indicate acute blockage in coronary flow. Immediate emergency clinical protocol suggested.' }
+                ]
+            }
+        };
+
+        let currentSessionId = 'sarah';
+
+        function switchChatGPTSession(sessId) {
+            currentSessionId = sessId;
+            document.querySelectorAll('.chatgpt-history-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            const activeItem = document.getElementById(`sess-${sessId}`);
+            if (activeItem) activeItem.classList.add('active');
+
+            // Reload messages feed
+            const feed = document.getElementById('chatgptFeed');
+            feed.innerHTML = ''; // Clear old
+
+            const session = chatgptSessions[sessId];
+            if (session && session.history.length > 0) {
+                session.history.forEach(msg => {
+                    renderChatGPTBubble(msg.text, msg.sender);
+                });
+            } else {
+                // Show empty welcome state
+                feed.innerHTML = `
+                    <div class="chatgpt-welcome-screen" id="chatgptWelcome">
+                        <div class="chatgpt-welcome-logo">🧠</div>
+                        <h2>MedExplain Conversational Workspace</h2>
+                        <p>Session: <strong>${session ? session.title : 'New Chat'}</strong> is active. Ask follow-up clinical questions below.</p>
+                    </div>
+                `;
+            }
+        }
+
+        function addChatGPTSession(title) {
+            const id = 'sess_' + Date.now();
+            chatgptSessions[id] = {
+                title: title,
+                history: []
+            };
+            
+            const list = document.getElementById('chatgptHistoryList');
+            const item = document.createElement('div');
+            item.className = 'chatgpt-history-item active';
+            item.id = `sess-${id}`;
+            item.onclick = () => switchChatGPTSession(id);
+            item.innerHTML = `
+                <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                ${title}
+            `;
+            
+            // Remove active from others
+            document.querySelectorAll('.chatgpt-history-item').forEach(i => i.classList.remove('active'));
+            
+            list.insertBefore(item, list.firstChild);
+            
+            currentSessionId = id;
+            
+            const feed = document.getElementById('chatgptFeed');
+            feed.innerHTML = ''; // Clean feed
+        }
+
+        function startNewChatGPTReadySession() {
+            addChatGPTSession('New Clinical Case');
+            const feed = document.getElementById('chatgptFeed');
+            feed.innerHTML = `
+                <div class="chatgpt-welcome-screen" id="chatgptWelcome">
+                    <div class="chatgpt-welcome-logo">🧠</div>
+                    <h2>MedExplain Conversational Workspace</h2>
+                    <p>Ask follow-up questions, query reference guidelines, or screen drug interactions. Click any action starter card below to initiate clinical inquiries instantly.</p>
+                    <div class="chatgpt-suggestions-grid">
+                        <div class="chatgpt-suggestion-card" onclick="prefillChatGPTInput('Explain blood glucose levels')">
+                            <h5>📊 Explain Glucose</h5>
+                            <span>Identify reference bounds.</span>
+                        </div>
+                        <div class="chatgpt-suggestion-card" onclick="prefillChatGPTInput('Check medication side effects')">
+                            <h5>💊 Medication Side Effects</h5>
+                            <span>Review normal side effects indices.</span>
+                        </div>
+                        <div class="chatgpt-suggestion-card" onclick="prefillChatGPTInput('Read chest X-ray markings')">
+                            <h5>🫁 Pulmonary Markings</h5>
+                            <span>Review radiographic opacities findings.</span>
+                        </div>
+                        <div class="chatgpt-suggestion-card" onclick="prefillChatGPTInput('Explain cardiac ST-elevation findings')">
+                            <h5>🩺 Cardiac STEMI ECG</h5>
+                            <span>Summarize cardiac guidelines.</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function prefillChatGPTInput(prompt) {
+            const input = document.getElementById('chatgptChatInput');
+            input.value = prompt;
+            input.focus();
+        }
+
+        function handleChatGPTKeydown(event) {
+            if (event.key === 'Enter') {
+                sendChatGPTChatMessage();
+            }
+        }
+
+        function sendChatGPTChatMessage() {
+            const input = document.getElementById('chatgptChatInput');
+            const message = input.value.trim();
+            if (!message) return;
+
+            // Remove welcome screen if visible
+            const welcome = document.getElementById('chatgptWelcome');
+            if (welcome) welcome.remove();
+
+            renderChatGPTMessage(message, 'user');
+            input.value = '';
+
+            // Add loading indicator
+            const feed = document.getElementById('chatgptFeed');
+            const loader = document.createElement('div');
+            loader.className = 'chat-bubble bot';
+            loader.id = 'chatgpt-bubble-loading';
+            loader.innerHTML = '<em>Consulting Meditron reasoning nodes...</em>';
+            feed.appendChild(loader);
+            feed.scrollTop = feed.scrollHeight;
+
+            fetch('/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: message, history: [] })
+            })
+            .then(res => res.json())
+            .then(data => {
+                const loadingBubble = document.getElementById('chatgpt-bubble-loading');
+                if (loadingBubble) loadingBubble.remove();
+
+                if (data.error) {
+                    renderChatGPTMessage('An error occurred during conversational reasoning: ' + data.error, 'bot');
+                    return;
+                }
+
+                renderChatGPTMessage(data.response, 'bot');
+                
+                if (data.emergency_escalated) {
+                    triggerEmergencyFlash();
+                }
+            })
+            .catch(err => {
+                const loadingBubble = document.getElementById('chatgpt-bubble-loading');
+                if (loadingBubble) loadingBubble.remove();
+                renderChatGPTMessage('Error communicating with clinical assistant: ' + err.message, 'bot');
+            });
+        }
+
+        function renderChatGPTMessage(text, sender) {
+            // Save to local active session history
+            if (chatgptSessions[currentSessionId]) {
+                chatgptSessions[currentSessionId].history.push({ sender: sender, text: text });
+            }
+            renderChatGPTBubble(text, sender);
+        }
+
+        function renderChatGPTBubble(text, sender) {
+            const feed = document.getElementById('chatgptFeed');
+            const bubble = document.createElement('div');
+            bubble.className = `chat-bubble ${sender}`;
+            
+            let formattedText = text
+                .replace(/\n/g, '<br>')
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                .replace(/### (.*?)(?:<br>|$)/g, '<h4 style="font-family:\'Outfit\'; color:#ffffff; font-size:14.5px; margin-top:10px; margin-bottom:5px;">$1</h4>')
+                .replace(/---/g, '<hr style="border:none; border-top:1px solid var(--border-color); margin:12px 0;">');
+
+            bubble.innerHTML = formattedText;
+            feed.appendChild(bubble);
+            feed.scrollTop = feed.scrollHeight;
+        }
+
+        // --- Timeline Event Point Generator ---
+        function addTimelinePoint(trackId, label, dateStr, colorClass) {
+            const timeline = document.getElementById(trackId + 'Timeline');
+            if (!timeline) return;
+            
+            const point = document.createElement('div');
+            point.className = `timeline-point point-${colorClass}`;
+            // Generate position near the end (right side) to represent the newest event
+            const leftPos = Math.floor(Math.random() * 6) + 91; // 91% to 96%
+            point.style.left = `${leftPos}%`;
+            point.title = `${label}: ${dateStr}`;
+            
+            const tag = document.createElement('div');
+            tag.className = 'timeline-point-tag';
+            tag.textContent = dateStr;
+            point.appendChild(tag);
+            
+            timeline.appendChild(point);
+        }
+
+        // Initialize ChatGPT default session
+        window.addEventListener('DOMContentLoaded', () => {
+            switchChatGPTSession('sarah');
+        });
     </script>
 </body>
 </html>
